@@ -1,0 +1,27 @@
+{
+    "name": "earnapp-earnings-watcher",
+    "version": "3.0.0",
+    "description": "Send a report of your hourly earning in a channel via a Discord webhook",
+    "main": "index.js",
+    "scripts": {
+        "start": "node src/index.js"
+    },
+    "engines": {
+        "node": ">=14"
+    },
+    "dependencies": {
+        "axios": "^0.24.0",
+        "earnapp.js": "^1.0.0",
+        "simple-discord-webhooks": "^1.1.1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/LockBlock-dev/earnapp-earnings-watcher.git"
+    },
+    "author": "LockBlock-dev",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/LockBlock-dev/earnapp-earnings-watcher/issues"
+    },
+    "homepage": "https://github.com/LockBlock-dev/earnapp-earnings-watcher#readme"
+}
