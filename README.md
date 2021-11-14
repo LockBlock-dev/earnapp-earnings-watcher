@@ -36,14 +36,14 @@ module.exports = {
 ```YAML
 version: "3.3"
 services:
-  app:
-    image: fazalfarhan01/earnapp-earning-monitor:lockblock-latest
-    restart: always
-    environment:
-      AUTH: YOUR_AUTH_COOKIE_HERE
-      WEBHOOK_URL: YOUR_WEBHOOK_URL_HERE
-      MODE: YOUR_MODE_HERE # Defaults to all when nothing specified
-      # takes total / perDevice / transactions / all as option
+    app:
+        image: fazalfarhan01/earnapp-earning-monitor:lockblock-latest
+        restart: always
+        environment:
+            AUTH: afbdsafdbaedgtfn
+            WEBHOOK_URL: https://example.com/somthing_to_do_with_you
+            MODE: all # Defaults to all when nothing specified
+            # takes total / perDevice / transactions / all as option
 ```
 
 ### Non-Compose
@@ -55,7 +55,6 @@ docker run -it --rm --restart always \
 -e MODE=YOUR_MODE_HERE \
 fazalfarhan01/earnapp-earning-monitor:lockblock-latest
 ```
-
 
 ## How do I find my cookies ?!
 

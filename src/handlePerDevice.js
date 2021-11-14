@@ -1,10 +1,6 @@
-const { Webhook } = require("simple-discord-webhooks");
 const { log, getOld, getNew, bytesToSize } = require("./util.js");
-const config = require("../config.js");
 
-const postman = new Webhook(config.discordWebhookURL);
-
-module.exports = async (client) => {
+module.exports = async (client, postman) => {
     const embed = {
         title: "EarnApp gains report",
         color: 0x00bb6e,
