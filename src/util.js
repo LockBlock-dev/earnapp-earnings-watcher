@@ -43,6 +43,10 @@ module.exports = {
                 const stats = await client.stats();
                 fs.writeFileSync("./data/stats.json", JSON.stringify(stats, null, 1), "utf8");
                 return stats;
+            case "transactions":
+                const transactions = await client.transactions();
+                fs.writeFileSync("./data/transactions.json", JSON.stringify(transactions, null, 1), "utf8");
+                return transactions;
         }
     },
 };
