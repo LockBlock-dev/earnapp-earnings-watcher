@@ -1,0 +1,10 @@
+version: "3.3"
+services:
+  app:
+    image: fazalfarhan01/earnapp-earning-monitor
+    restart: always
+    environment:
+      AUTH: afbdsafdbaedgtfn
+      WEBHOOK_URL: https://example.com/somthing_to_do_with_you
+      MODE: both # Defaults to both when nothing specified
+      # takes total / perDevice / both as option
