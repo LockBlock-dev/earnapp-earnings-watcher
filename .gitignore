@@ -1,4 +1,5 @@
 node_modules
 package-lock.json
-
+*.zip
 data
+/docker-compose.yml

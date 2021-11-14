@@ -9,6 +9,7 @@ const config = require("../config.js");
 const client = new Client();
 const webhookReg = /https:\/\/discord.com\/api\/webhooks\/\d{18}\/.+/;
 
+config.get_from_env()
 client.login({
     authMethod: config.authMethod,
     oauthRefreshToken: config.oauthRefreshToken,
