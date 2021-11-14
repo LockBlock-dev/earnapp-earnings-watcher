@@ -35,7 +35,7 @@ module.exports = {
 version: "3.3"
 services:
   app:
-    image: fazalfarhan01/earnapp-earning-monitor
+    image: fazalfarhan01/earnapp-earning-monitor:lockblock-latest
     restart: always
     environment:
       AUTH: YOUR_AUTH_COOKIE_HERE

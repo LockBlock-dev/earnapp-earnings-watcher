@@ -1,0 +1,33 @@
+name: Publish Image
+
+on:
+  # push:
+  #   branches:
+  #     - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install buildx
+        id: buildx
+        uses: crazy-max/ghaction-docker-buildx@v1
+        with:
+          version: latest
+
+      - name: Login to Docker Hub
+        env:
+          DOCKER_USER: ${{secrets.DOCKER_USER}}
+          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+        run: |
+          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+
+      - name: Build & Push - Latest
+        run: |
+          docker buildx build --push \
+          -t fazalfarhan01/earnapp-earning-monitor:lockblock-latest \
+          --platform linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v6 .
