@@ -50,7 +50,7 @@ docker run -it --rm --restart always \
 -e AUTH=YOUR_AUTH_COOKIE \
 -e WEBHOOK_URL=YOUR_WEBHOOK_URL_HERE \
 -e MODE=YOUR_MODE_HERE \
-fazalfarhan01/earnapp-earning-monitor:lockbot-latest
+fazalfarhan01/earnapp-earning-monitor:lockblock-latest
 ```
 ## How do I find my cookies ?!
 
