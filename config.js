@@ -5,5 +5,5 @@ module.exports = {
 
     oauthRefreshToken: "COOKIE", //see https://github.com/LockBlock-dev/earnapp.js#how-to-login-with-cookies
 
-    modes: ["total", "perDevice"], //you can put one mode or both
+    modes: ["total", "perDevice", "transactions"], //you can put one mode or both
 };

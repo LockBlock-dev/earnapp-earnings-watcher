@@ -115,32 +115,6 @@ module.exports = async (client) => {
                 value: `${newEarnings.length} devices | ${winCount} windows | ${linuxCount} linux`,
             }
         );
-    } else {
-        embed.color = 0x00bb6e;
-        embed.description = "New transaction";
-        embed.fields.push(
-            {
-                name: "Amount",
-                value: `${(oldStats.balance - newStats.balance).toFixed(2)}$`,
-                inline: true,
-            },
-            {
-                name: "Traffic",
-                value: bytesToSize((oldTraffic - newTraffic).toFixed(1)),
-                inline: true,
-            },
-            {
-                name: "Payment email",
-                value: newStats.redeem_details.email,
-            },
-            {
-                name: "Payment method",
-                value: newStats.redeem_details.payment_method,
-            }
-        );
-
-        await getNew(client, "devices");
-        await getNew(client, "stats");
     }
 
     log(`Total report sent`, "success");

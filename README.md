@@ -23,7 +23,7 @@ module.exports = {
 
     oauthRefreshToken: "COOKIE", //see https://github.com/LockBlock-dev/earnapp.js#how-to-login-with-cookies
 
-    modes: ["total", "perDevice"], //you can put one mode or both
+    modes: ["total", "perDevice", "transactions"], //you can put one mode or both
 };
 ```
 
@@ -43,10 +43,12 @@ Please check this [link](https://github.com/LockBlock-dev/earnapp.js#how-to-logi
         ![](total_preview.jpg)
     -   perDevice:  
         ![](perDevice_preview.jpg)
+    -   transactions:  
+        ![](transactions_preview.jpg)
 
 ## How does it work
 
-The script checks every minute if it is an exact hour (17:00, 8:00, ...). Then it waits 40 seconds to allow all earnings to update. After that it gets your earnings with the provided cookie. Finally, it calculates the difference between your previous balance and the new one and sends the results to the Discord WebHook.
+The script checks every minute if it is an exact hour (17:00, 8:00, ...). Then it waits 40 seconds to allow all earnings to update. After that it gets your earnings and transactions with the provided cookie. Finally, it calculates the difference between your previous balance and the new one, calculates the difference between old and new transactions and sends the results to the Discord WebHook.
 
 This means the webhook message will be sent at XX:00:40. Don't panic if you don't see any messages in the first few seconds.
 
