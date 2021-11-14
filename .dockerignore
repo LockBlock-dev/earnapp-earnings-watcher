@@ -1,0 +1,6 @@
+.gitignore
+Dockerfile
+LICENSE
+*.jpg
+*.bat
+*.md
