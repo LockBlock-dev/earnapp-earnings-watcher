@@ -6,5 +6,5 @@ services:
     environment:
       AUTH: afbdsafdbaedgtfn
       WEBHOOK_URL: https://example.com/somthing_to_do_with_you
-      MODE: both # Defaults to both when nothing specified
-      # takes total / perDevice / both as option
+      MODE: both # Defaults to all when nothing specified
+      # takes total / perDevice / transactions / all as option
