@@ -89,14 +89,14 @@ module.exports = async (client, postman) => {
     if (difference > 0) {
         newTransactions.forEach((transaction, i) => {
             if (oldTransactions[i - difference]?.uuid !== transaction.uuid) {
-                log(`Transaction report sent`, "success");
+                log("Transaction report sent", "success");
                 postman.send(null, [report(transaction)]);
             }
         });
     } else if (difference === 0) {
         newTransactions.forEach((transaction, i) => {
             if (oldTransactions[i]?.status !== transaction.status) {
-                log(`Transaction report sent`, "success");
+                log("Transaction report sent", "success");
                 postman.send(null, [report(transaction)]);
             }
         });

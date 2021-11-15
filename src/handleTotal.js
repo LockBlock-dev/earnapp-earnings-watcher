@@ -58,20 +58,8 @@ module.exports = async (client, postman) => {
             },
             {
                 name: "Lifetime balance",
-                value: `${newStats.total_earnings}$`,
+                value: `${newStats.earnings_total}$`,
                 inline: true,
-            },
-            {
-                name: "Payment method",
-                value: newStats.redeem_details.payment_method,
-            },
-            {
-                name: "Active devices",
-                value: `${active.length} devices | ${activeWinCount} windows | ${activeLinuxCount} linux`,
-            },
-            {
-                name: "Total devices",
-                value: `${newEarnings.length} devices | ${winCount} windows | ${linuxCount} linux`,
             }
         );
     } else if (difference === 0) {
@@ -95,24 +83,30 @@ module.exports = async (client, postman) => {
             },
             {
                 name: "Lifetime balance",
-                value: `${newStats.total_earnings}$`,
+                value: `${newStats.earnings_total}$`,
                 inline: true,
-            },
-            {
-                name: "Payment method",
-                value: newStats.redeem_details.payment_method,
-            },
-            {
-                name: "Active devices",
-                value: `${active.length} devices | ${activeWinCount} windows | ${activeLinuxCount} linux`,
-            },
-            {
-                name: "Total devices",
-                value: `${newEarnings.length} devices | ${winCount} windows | ${linuxCount} linux`,
             }
         );
     }
 
-    log(`Total report sent`, "success");
+    if (newStats.redeem_details) {
+        embed.fields.push({
+            name: "Payment method",
+            value: newStats.redeem_details.payment_method,
+        });
+    }
+
+    embed.fields.push(
+        {
+            name: "Active devices",
+            value: `${active.length} devices | ${activeWinCount} windows | ${activeLinuxCount} linux`,
+        },
+        {
+            name: "Total devices",
+            value: `${newEarnings.length} devices | ${winCount} windows | ${linuxCount} linux`,
+        }
+    );
+
+    log("Total report sent", "success");
     postman.send(null, [embed]);
 };

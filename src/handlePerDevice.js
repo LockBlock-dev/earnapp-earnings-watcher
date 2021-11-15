@@ -30,7 +30,7 @@ module.exports = async (client, postman) => {
                     Earned: + ${(device.earned - oldEarnings[i]?.earned ?? 0).toFixed(2)}$
                     Traffic: + ${bytesToSize(device.bw - oldEarnings[i]?.bw ?? 0)}
                     Rate: ${device.rate}
-                    Lifetime balance: ${device.total_earned}$
+                    Lifetime balance: ${device.earned_total}$
                     Lifetime traffic: ${bytesToSize(device.total_bw)}
                     Country: :flag_${device.cn}:
                     `,
@@ -38,7 +38,7 @@ module.exports = async (client, postman) => {
             }
         });
 
-        log(`Per device report sent`, "success");
+        log("Per device report sent", "success");
         postman.send(null, [embed]);
     }
 };
