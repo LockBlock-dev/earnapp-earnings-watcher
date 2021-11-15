@@ -1,4 +1,5 @@
 const fs = require("fs");
+const axios = require("axios").default;
 const { Client } = require("earnapp.js");
 const { Webhook } = require("simple-discord-webhooks");
 const { log, delay, getOld } = require("./util.js");
@@ -6,6 +7,7 @@ const handleTotal = require("./handleTotal.js");
 const handlePerDevice = require("./handlePerDevice.js");
 const handleTransactions = require("./handleTransactions.js");
 const config = require("../config.js");
+const pkg = require("../package.json");
 
 if (process.env.WEBHOOK_URL) config.discordWebhookURL = process.env.WEBHOOK_URL;
 if (process.env.AUTH) config.oauthRefreshToken = process.env.AUTH;
@@ -39,8 +41,14 @@ const init = async () => {
     return true;
 };
 
+const checkUpdate = async () => {
+    const version = (await axios.get("https://raw.githubusercontent.com/LockBlock-dev/earnapp-earnings-watcher/master/package.json")).data.version;
+
+    if (version !== pkg.version) log(`An update is available! v${pkg.version} => v${version}`, "info");
+};
+
 const run = async () => {
-    log(`Welcome to EarnApp Earnings Watcher v${require("../package.json").version}`, "success");
+    log(`Welcome to EarnApp Earnings Watcher v${pkg.version}`, "success");
 
     let test = await init();
 
@@ -64,12 +72,14 @@ const run = async () => {
         log("Previous data downloaded", "success");
     }
 
+    await checkUpdate();
+
     log("Waiting for a balance update...", "info");
 
     let time = new Date();
     while (test) {
         let newTime = new Date();
-        if (time.getHours() - newTime.getHours() < 0) {
+        if (time.getUTCHours() - newTime.getUTCHours() < 0) {
             time = newTime;
             await delay(1000 * 40);
 
