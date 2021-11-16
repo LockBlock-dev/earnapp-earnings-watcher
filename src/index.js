@@ -15,7 +15,7 @@ if (process.env.MODE) {
     let options = ["total", "perDevice", "transactions", "all"];
     if (options.includes(process.env.MODE)) config.modes = [process.env.MODE];
 }
-
+if (process.env.DELAY) config.delay = process.env.DELAY;
 const client = new Client();
 const postman = new Webhook(config.discordWebhookURL);
 const webhookReg = /https:\/\/discord.com\/api\/webhooks\/\d{18}\/.+/;
@@ -72,16 +72,17 @@ const run = async () => {
         log("Previous data downloaded", "success");
     }
 
-    await checkUpdate();
-
     log("Waiting for a balance update...", "info");
+
+    await checkUpdate();
 
     let time = new Date();
     while (test) {
         let newTime = new Date();
-        if (time.getUTCHours() - newTime.getUTCHours() < 0) {
+        let diff = newTime.getUTCHours() === 0 ? -1 : time.getUTCHours() - newTime.getUTCHours();
+        if (diff < 0) {
             time = newTime;
-            await delay(1000 * 40);
+            await delay(1000 * config.delay);
 
             config.modes.forEach((m) => {
                 switch (m) {
@@ -96,6 +97,8 @@ const run = async () => {
                         break;
                 }
             });
+
+            await checkUpdate();
         }
         await delay(1000 * 60);
     }

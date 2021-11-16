@@ -12,7 +12,7 @@ Bugs can occur, this is an unofficial use of the EarnApp API.
 
 -   Install [NodeJS](https://nodejs.org).
 -   Download or clone the project.
--   Go to the `earnapp-earnings-watcher` folder and run `npm install`.
+-   Run `install.bat` OR run `npm install`.
 -   In the [config.js](./index.js), you need to edit the WEBHOOK URL and the COOKIE:
 
 ```js
@@ -24,6 +24,8 @@ module.exports = {
     oauthRefreshToken: "COOKIE", //see https://github.com/LockBlock-dev/earnapp.js#how-to-login-with-cookies
 
     modes: ["total", "perDevice", "transactions"], //you can put one mode or both
+
+    delay: 40, //delay before updating earnings
 };
 ```
 
@@ -44,6 +46,7 @@ services:
             WEBHOOK_URL: https://example.com/somthing_to_do_with_you
             MODE: all # Defaults to all when nothing specified
             # takes total / perDevice / transactions / all as option
+            DELAY: 40
 ```
 
 ### Non-Compose
@@ -53,6 +56,7 @@ docker run -it --rm --restart always \
 -e AUTH=YOUR_AUTH_COOKIE \
 -e WEBHOOK_URL=YOUR_WEBHOOK_URL_HERE \
 -e MODE=YOUR_MODE_HERE \
+-e DELAY=YOUR_DELAY_HERE \
 fazalfarhan01/earnapp-earning-monitor:lockblock-latest
 ```
 
@@ -72,6 +76,7 @@ Please check this [link](https://github.com/LockBlock-dev/earnapp.js#how-to-logi
         ![](perDevice_preview.jpg)
     -   transactions:  
         ![](transactions_preview.jpg)
+-   **delay**: the delay before updating the earnings
 
 ## How does it work
 

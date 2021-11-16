@@ -8,3 +8,4 @@ services:
             WEBHOOK_URL: https://example.com/somthing_to_do_with_you
             MODE: all # Defaults to all when nothing specified
             # takes total / perDevice / transactions / all as option
+            DELAY: 40
