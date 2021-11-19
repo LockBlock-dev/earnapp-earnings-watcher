@@ -37,6 +37,26 @@ module.exports = async (client, postman) => {
         if (device.uuid.includes("node")) linuxCount += 1;
     });
 
+    const bottom = () => {
+        if (newStats.redeem_details) {
+            embed.fields.push({
+                name: "Payment method",
+                value: newStats.redeem_details.payment_method,
+            });
+        }
+
+        embed.fields.push(
+            {
+                name: "Active devices",
+                value: `${active.length} devices | ${activeWinCount} windows | ${activeLinuxCount} linux`,
+            },
+            {
+                name: "Total devices",
+                value: `${newEarnings.length} devices | ${winCount} windows | ${linuxCount} linux`,
+            }
+        );
+    };
+
     if (difference > 0) {
         embed.color = 0x00bb6e;
         embed.description = "Balance update";
@@ -62,6 +82,7 @@ module.exports = async (client, postman) => {
                 inline: true,
             }
         );
+        bottom();
     } else if (difference === 0) {
         embed.color = 0xff0101;
         embed.description = "Balance didn't change";
@@ -87,25 +108,8 @@ module.exports = async (client, postman) => {
                 inline: true,
             }
         );
+        bottom();
     }
-
-    if (newStats.redeem_details) {
-        embed.fields.push({
-            name: "Payment method",
-            value: newStats.redeem_details.payment_method,
-        });
-    }
-
-    embed.fields.push(
-        {
-            name: "Active devices",
-            value: `${active.length} devices | ${activeWinCount} windows | ${activeLinuxCount} linux`,
-        },
-        {
-            name: "Total devices",
-            value: `${newEarnings.length} devices | ${winCount} windows | ${linuxCount} linux`,
-        }
-    );
 
     log("Total report sent", "success");
     postman.send(null, [embed]);

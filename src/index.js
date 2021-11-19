@@ -76,31 +76,27 @@ const run = async () => {
 
     await checkUpdate();
 
-    let time = new Date();
     while (test) {
-        let newTime = new Date();
-        let diff = newTime.getUTCHours() === 0 ? -1 : time.getUTCHours() - newTime.getUTCHours();
-        if (diff < 0) {
-            time = newTime;
-            await delay(1000 * config.delay);
+        let counters = await client.counters();
 
-            config.modes.forEach((m) => {
-                switch (m) {
-                    case "total":
-                        handleTotal(client, postman);
-                        break;
-                    case "perDevice":
-                        handlePerDevice(client, postman);
-                        break;
-                    case "transactions":
-                        handleTransactions(client, postman);
-                        break;
-                }
-            });
+        await delay(counters.balance_sync);
+        await delay(1000 * config.delay);
 
-            await checkUpdate();
-        }
-        await delay(1000 * 60);
+        config.modes.forEach((m) => {
+            switch (m) {
+                case "total":
+                    handleTotal(client, postman);
+                    break;
+                case "perDevice":
+                    handlePerDevice(client, postman);
+                    break;
+                case "transactions":
+                    handleTransactions(client, postman);
+                    break;
+            }
+        });
+
+        await checkUpdate();
     }
 };
 
