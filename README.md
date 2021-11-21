@@ -23,7 +23,7 @@ module.exports = {
 
     oauthRefreshToken: "COOKIE", //see https://github.com/LockBlock-dev/earnapp.js#how-to-login-with-cookies
 
-    modes: ["total", "perDevice", "transactions"], //you can put one mode or both
+    modes: ["total", "perDevice", "referrals", "transactions"], //you can put one mode or both
 
     delay: 40, //delay before updating earnings
 };
@@ -45,7 +45,7 @@ services:
             AUTH: afbdsafdbaedgtfn
             WEBHOOK_URL: https://example.com/somthing_to_do_with_you
             MODE: all # Defaults to all when nothing specified
-            # takes total / perDevice / transactions / all as option
+            # takes total / perDevice / referrals / transactions / all as option
             DELAY: 40
 ```
 
@@ -74,6 +74,8 @@ Please check this [link](https://github.com/LockBlock-dev/earnapp.js#how-to-logi
         ![](total_preview.jpg)
     -   perDevice:  
         ![](perDevice_preview.jpg)
+    -   referrals:  
+        ![](referrals_preview.jpg)
     -   transactions:  
         ![](transactions_preview.jpg)
 -   **delay**: the delay before updating the earnings

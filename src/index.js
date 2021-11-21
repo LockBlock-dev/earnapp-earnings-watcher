@@ -5,6 +5,7 @@ const { Webhook } = require("simple-discord-webhooks");
 const { log, delay, getOld } = require("./util.js");
 const handleTotal = require("./handleTotal.js");
 const handlePerDevice = require("./handlePerDevice.js");
+const handleReferrals = require("./handleReferrals.js");
 const handleTransactions = require("./handleTransactions.js");
 const config = require("../config.js");
 const pkg = require("../package.json");
@@ -54,18 +55,31 @@ const run = async () => {
 
     if (!test) process.exit(1);
     if (!fs.existsSync("./data/")) fs.mkdirSync("./data");
-    if (!fs.existsSync("./data/devices.json") || !fs.existsSync("./data/stats.json") || !fs.existsSync("./data/transactions.json")) {
+    if (
+        !fs.existsSync("./data/devices.json") ||
+        !fs.existsSync("./data/stats.json") ||
+        !fs.existsSync("./data/referrals.json") ||
+        !fs.existsSync("./data/transactions.json")
+    ) {
         fs.writeFileSync("./data/devices.json", "{}");
         fs.writeFileSync("./data/stats.json", "{}");
+        fs.writeFileSync("./data/referrals.json", "{}");
         fs.writeFileSync("./data/transactions.json", "{}");
     }
-    if (Object.entries(getOld("devices")).length === 0 || Object.entries(getOld("stats")).length === 0) {
+    if (
+        Object.entries(getOld("devices")).length === 0 ||
+        Object.entries(getOld("stats")).length === 0 ||
+        Object.entries(getOld("referrals")).length === 0 ||
+        Object.entries(getOld("transactions")).length === 0
+    ) {
         log("No previous data detected, downloading...", "info");
 
         const devices = await client.devices();
         fs.writeFileSync("./data/devices.json", JSON.stringify(devices, null, 1), "utf8");
         const stats = await client.stats();
         fs.writeFileSync("./data/stats.json", JSON.stringify(stats, null, 1), "utf8");
+        const referrals = await client.referrals();
+        fs.writeFileSync("./data/referrals.json", JSON.stringify(referrals, null, 1), "utf8");
         const transactions = await client.transactions();
         fs.writeFileSync("./data/transactions.json", JSON.stringify(transactions, null, 1), "utf8");
 
@@ -89,6 +103,9 @@ const run = async () => {
                     break;
                 case "perDevice":
                     handlePerDevice(client, postman);
+                    break;
+                case "referrals":
+                    handleReferrals(client, postman);
                     break;
                 case "transactions":
                     handleTransactions(client, postman);

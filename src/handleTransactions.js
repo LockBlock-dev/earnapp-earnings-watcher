@@ -21,6 +21,11 @@ module.exports = async (client, postman) => {
                 inline: true,
             },
             {
+                name: "Referrals bonus",
+                value: `${transaction.bonuses_amount}$`,
+                inline: true,
+            },
+            {
                 name: "Traffic",
                 value: bytesToSize(transaction.bw_amount),
                 inline: true,
