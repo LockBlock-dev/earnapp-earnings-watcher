@@ -27,6 +27,7 @@ module.exports = async (client, postman) => {
                 embed.fields.push({
                     name: device.uuid,
                     value: `
+                    Banned: ${device.banned ? "Yes" : "No"}
                     Earned: + ${(device.earned - (oldEarnings[i]?.earned ?? 0)).toFixed(2)}$
                     Traffic: + ${bytesToSize(device.bw - (oldEarnings[i]?.bw ?? 0))}
                     Rate: ${device.rate}

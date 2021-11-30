@@ -68,7 +68,7 @@ module.exports = async (client, postman) => {
             },
             {
                 name: "Referrals bonus",
-                value: `+ ${(newStats.bonuses - oldStats.bonuses).toFixed(2)}$`,
+                value: `+ ${(newStats.ref_bonus - oldStats.ref_bonus).toFixed(2)}$`,
                 inline: true,
             },
             {

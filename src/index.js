@@ -20,6 +20,7 @@ if (process.env.DELAY) config.delay = process.env.DELAY;
 const client = new Client();
 const postman = new Webhook(config.discordWebhookURL);
 const webhookReg = /https:\/\/discord.com\/api\/webhooks\/\d{18}\/.+/;
+const files = ["devices", "referrals", "stats", "transactions"];
 
 client.login({
     authMethod: config.authMethod,
@@ -55,36 +56,33 @@ const run = async () => {
 
     if (!test) process.exit(1);
     if (!fs.existsSync("./data/")) fs.mkdirSync("./data");
-    if (
-        !fs.existsSync("./data/devices.json") ||
-        !fs.existsSync("./data/stats.json") ||
-        !fs.existsSync("./data/referrals.json") ||
-        !fs.existsSync("./data/transactions.json")
-    ) {
-        fs.writeFileSync("./data/devices.json", "{}");
-        fs.writeFileSync("./data/stats.json", "{}");
-        fs.writeFileSync("./data/referrals.json", "{}");
-        fs.writeFileSync("./data/transactions.json", "{}");
-    }
-    if (
-        Object.entries(getOld("devices")).length === 0 ||
-        Object.entries(getOld("stats")).length === 0 ||
-        Object.entries(getOld("referrals")).length === 0 ||
-        Object.entries(getOld("transactions")).length === 0
-    ) {
-        log("No previous data detected, downloading...", "info");
 
-        const devices = await client.devices();
-        fs.writeFileSync("./data/devices.json", JSON.stringify(devices, null, 1), "utf8");
-        const stats = await client.stats();
-        fs.writeFileSync("./data/stats.json", JSON.stringify(stats, null, 1), "utf8");
-        const referrals = await client.referrals();
-        fs.writeFileSync("./data/referrals.json", JSON.stringify(referrals, null, 1), "utf8");
-        const transactions = await client.transactions();
-        fs.writeFileSync("./data/transactions.json", JSON.stringify(transactions, null, 1), "utf8");
+    files.forEach(async (f) => {
+        if (!fs.existsSync(`./data/${f}.json`)) fs.writeFileSync(`./data/${f}.json`, "{}");
 
-        log("Previous data downloaded", "success");
-    }
+        if (Object.entries(getOld(f)).length === 0) {
+            log(`No previous ${f} detected, downloading...`, "info");
+            let data;
+
+            switch (f) {
+                case "devices":
+                    data = await client.devices();
+                    break;
+                case "stats":
+                    data = await client.stats();
+                    break;
+                case "referrals":
+                    data = await client.referrals();
+                    break;
+                case "transactions":
+                    data = await client.transactions();
+                    break;
+            }
+
+            fs.writeFileSync(`./data/${f}.json`, JSON.stringify(data, null, 1), "utf8");
+            log(`Previous ${f} downloaded`, "success");
+        }
+    });
 
     log("Waiting for a balance update...", "info");
 

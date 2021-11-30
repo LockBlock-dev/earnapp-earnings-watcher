@@ -1,6 +1,6 @@
 {
     "name": "earnapp-earnings-watcher",
-    "version": "3.4.0",
+    "version": "3.5.0",
     "description": "Send a report of your hourly earning in a channel via a Discord webhook",
     "main": "index.js",
     "scripts": {
