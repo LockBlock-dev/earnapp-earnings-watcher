@@ -22,7 +22,7 @@ module.exports = async (client, postman) => {
             embed.fields.push({
                 name: referral.email,
                 value: `
-                    Earned: + ${referral.bonuses - (oldReferrals[i]?.bonuses ?? 0)}$
+                    Earned: + ${(referral.bonuses - (oldReferrals[i]?.bonuses ?? 0)).toFixed(2)}$
                     Lifetime bonus: ${referral.bonuses_total}$
                     `,
             });

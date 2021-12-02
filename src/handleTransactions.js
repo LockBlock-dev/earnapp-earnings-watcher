@@ -22,7 +22,12 @@ module.exports = async (client, postman) => {
             },
             {
                 name: "Referrals bonus",
-                value: `${transaction.bonuses_amount}$`,
+                value: `${transaction.ref_bonuses_amount}$`,
+                inline: true,
+            },
+            {
+                name: "Promotions bonus",
+                value: `${transaction.promo_bonuses_amount}$`,
                 inline: true,
             },
             {

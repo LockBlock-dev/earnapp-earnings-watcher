@@ -72,6 +72,11 @@ module.exports = async (client, postman) => {
                 inline: true,
             },
             {
+                name: "Promotions bonus",
+                value: `+ ${(newStats.promo_bonuses - oldStats.promo_bonuses).toFixed(2)}$`,
+                inline: true,
+            },
+            {
                 name: "Traffic",
                 value: `+ ${bytesToSize((newTraffic - oldTraffic).toFixed(1))}`,
                 inline: true,
@@ -100,6 +105,11 @@ module.exports = async (client, postman) => {
             {
                 name: "Referrals bonus",
                 value: `+ ${(newStats.bonuses - oldStats.bonuses).toFixed(2)}$`,
+                inline: true,
+            },
+            {
+                name: "Promotions bonus",
+                value: `+ ${(newStats.promo_bonuses - oldStats.promo_bonuses).toFixed(2)}$`,
                 inline: true,
             },
             {

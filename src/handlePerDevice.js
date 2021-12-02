@@ -25,7 +25,7 @@ module.exports = async (client, postman) => {
         newEarnings.forEach((device, i) => {
             if (device.earned > 0) {
                 embed.fields.push({
-                    name: device.uuid,
+                    name: device.title,
                     value: `
                     Banned: ${device.banned ? "Yes" : "No"}
                     Earned: + ${(device.earned - (oldEarnings[i]?.earned ?? 0)).toFixed(2)}$
