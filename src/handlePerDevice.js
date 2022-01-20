@@ -33,7 +33,7 @@ module.exports = async (client, postman) => {
                     Rate: ${device.rate}
                     Lifetime balance: ${device.earned_total}$
                     Lifetime traffic: ${bytesToSize(device.total_bw)}
-                    Country: :flag_${device.cn}:
+                    Country: :flag_${device.country}:
                     `,
                 });
             }
