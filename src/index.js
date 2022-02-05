@@ -5,6 +5,7 @@ const { Webhook } = require("simple-discord-webhooks");
 const { log, delay, getOld } = require("./util.js");
 const handleTotal = require("./handleTotal.js");
 const handlePerDevice = require("./handlePerDevice.js");
+const handleGroupDevices = require("./handleGroupDevices.js");
 const handleReferrals = require("./handleReferrals.js");
 const handleTransactions = require("./handleTransactions.js");
 const config = require("../config.js");
@@ -13,7 +14,7 @@ const pkg = require("../package.json");
 if (process.env.WEBHOOK_URL) config.discordWebhookURL = process.env.WEBHOOK_URL;
 if (process.env.AUTH) config.oauthRefreshToken = process.env.AUTH;
 if (process.env.MODE) {
-    let options = ["total", "perDevice", "transactions", "all"];
+    let options = ["total", "perDevice", "groupDevice", "transactions", "all"];
     if (options.includes(process.env.MODE)) config.modes = [process.env.MODE];
 }
 if (process.env.DELAY) config.delay = process.env.DELAY;
@@ -91,8 +92,8 @@ const run = async () => {
     while (test) {
         let counters = await client.counters();
 
-        await delay(counters.balance_sync);
-        await delay(1000 * config.delay);
+        //await delay(counters.balance_sync);
+        await delay(1000); // * config.delay);
 
         config.modes.forEach((m) => {
             switch (m) {
@@ -101,6 +102,9 @@ const run = async () => {
                     break;
                 case "perDevice":
                     handlePerDevice(client, postman);
+                    break;
+                case "groupDevices":
+                    handleGroupDevices(client, postman);
                     break;
                 case "referrals":
                     handleReferrals(client, postman);
