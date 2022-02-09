@@ -92,8 +92,8 @@ const run = async () => {
     while (test) {
         let counters = await client.counters();
 
-        //await delay(counters.balance_sync);
-        await delay(1000); // * config.delay);
+        await delay(counters.balance_sync);
+        await delay(1000 * config.delay);
 
         config.modes.forEach((m) => {
             switch (m) {
