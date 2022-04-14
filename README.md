@@ -62,7 +62,7 @@ fazalfarhan01/earnapp-earning-monitor:lockblock-latest
 
 ## How do I find my cookies ?!
 
-Please check this [link](https://github.com/LockBlock-dev/earnapp.js#how-to-login-with-cookies).
+Please check this [link](https://github.com/LockBlock-dev/earnapp.js/blob/master/Cookies.md#how-to-login-with-cookies).
 
 ## What is what
 
