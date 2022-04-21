@@ -45,9 +45,14 @@ const init = async () => {
 };
 
 const checkUpdate = async () => {
-    const version = (await axios.get("https://raw.githubusercontent.com/LockBlock-dev/earnapp-earnings-watcher/master/package.json")).data.version;
+    const version = (
+        await axios.get(
+            "https://raw.githubusercontent.com/LockBlock-dev/earnapp-earnings-watcher/master/package.json"
+        )
+    ).data.version;
 
-    if (version !== pkg.version) log(`An update is available! v${pkg.version} => v${version}`, "info");
+    if (version !== pkg.version)
+        log(`An update is available! v${pkg.version} => v${version}`, "info");
 };
 
 const run = async () => {
