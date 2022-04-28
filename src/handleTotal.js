@@ -21,20 +21,28 @@ module.exports = async (client, postman) => {
     let active = newEarnings.filter((device) => device.earned > 0);
     let oldTraffic = 0;
     let newTraffic = 0;
-    let activeWinCount = 0;
-    let activeLinuxCount = 0;
-    let winCount = 0;
-    let linuxCount = 0;
+    let activesCount = {
+        win: 0,
+        linux: 0,
+        android: 0
+    }
+    let count = {
+        win: 0,
+        linux: 0,
+        android: 0
+    }
 
     oldEarnings.filter((device) => device.earned > 0).forEach((device) => (oldTraffic += device.bw));
     active.forEach((device) => {
         newTraffic += device.bw;
-        if (device.uuid.includes("win")) activeWinCount += 1;
-        if (device.uuid.includes("node")) activeLinuxCount += 1;
+        if (device.uuid.includes("win")) activesCount.win += 1;
+        if (device.uuid.includes("node")) activesCount.linux += 1;
+        if (device.uuid.includes("android")) activesCount.android += 1;
     });
     newEarnings.forEach((device) => {
-        if (device.uuid.includes("win")) winCount += 1;
-        if (device.uuid.includes("node")) linuxCount += 1;
+        if (device.uuid.includes("win")) count.win += 1;
+        if (device.uuid.includes("node")) count.linux += 1;
+        if (device.uuid.includes("android")) count.android += 1;
     });
 
     const bottom = () => {
@@ -48,11 +56,11 @@ module.exports = async (client, postman) => {
         embed.fields.push(
             {
                 name: "Active devices",
-                value: `${active.length} devices | ${activeWinCount} windows | ${activeLinuxCount} linux`,
+                value: `${active.length} devices | ${activesCount.win} windows | ${activesCount.linux} linux | ${activesCount.android} android`,
             },
             {
                 name: "Total devices",
-                value: `${newEarnings.length} devices | ${winCount} windows | ${linuxCount} linux`,
+                value: `${newEarnings.length} devices | ${count.win} windows | ${count.linux} linux | ${count.android} android`,
             }
         );
     };
