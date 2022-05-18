@@ -4,7 +4,6 @@ const { readdirSync, writeFileSync } = require("fs");
 const { log, checkUpdate } = require("./util.js");
 const { execSync } = require("child_process");
 const config = require("../config.js");
-const app = require("./index.js");
 
 module.exports.update = async () => {
     const update = await checkUpdate();
@@ -59,6 +58,4 @@ module.exports.update = async () => {
     } else {
         log(`Skipping auto update`, "info");
     }
-
-    app.run();
 };
