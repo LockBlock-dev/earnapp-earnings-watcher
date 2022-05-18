@@ -92,19 +92,34 @@ run = async () => {
         config.modes.forEach((m) => {
             switch (m) {
                 case "total":
-                    handleTotal(client, postman);
+                    try {
+                        handleTotal(client, postman);
+                    } catch {}
+
                     break;
                 case "perDevice":
-                    handlePerDevice(client, postman);
+                    try {
+                        handlePerDevice(client, postman);
+                    } catch {}
+
                     break;
                 case "groupDevices":
-                    handleGroupDevices(client, postman);
+                    try {
+                        handleGroupDevices(client, postman);
+                    } catch {}
+
                     break;
                 case "referrals":
-                    handleReferrals(client, postman);
+                    try {
+                        handleReferrals(client, postman);
+                    } catch {}
+
                     break;
                 case "transactions":
-                    handleTransactions(client, postman);
+                    try {
+                        handleTransactions(client, postman);
+                    } catch {}
+
                     break;
             }
         });
