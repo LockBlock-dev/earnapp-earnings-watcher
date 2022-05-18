@@ -10,4 +10,6 @@ module.exports = {
     //using perDevice and groupDevices with many devices is not possible as it may exceed the size limit of an Embed
 
     delay: 40, //delay before updating earnings
+
+    autoUpdate: true,
 };
