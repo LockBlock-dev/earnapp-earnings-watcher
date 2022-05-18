@@ -56,6 +56,7 @@ module.exports.update = async () => {
             log(`Failed to update!`, "warn");
         }
     } else {
-        log(`Skipping auto update`, "info");
+        if (autoUpdate === false) log(`Skipping auto update, disabled in config`, "info");
+        else log(`Skipping auto update, you have the last version`, "info");
     }
 };
