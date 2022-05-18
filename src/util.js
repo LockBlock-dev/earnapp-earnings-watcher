@@ -1,4 +1,6 @@
-const fs = require("fs");
+const axios = require("axios").default;
+const pkg = require("../package.json");
+const { readFileSync, writeFileSync } = require("fs");
 
 module.exports = {
     log: (msg, type) => {
@@ -30,27 +32,44 @@ module.exports = {
     },
 
     getOld: (file) => {
-        return JSON.parse(fs.readFileSync(`./data/${file}.json`, "utf8"));
+        return JSON.parse(readFileSync(`./data/${file}.json`, "utf8"));
     },
 
     getNew: async (client, type) => {
         switch (type) {
             case "devices":
                 const devices = await client.devices();
-                fs.writeFileSync("./data/devices.json", JSON.stringify(devices, null, 1), "utf8");
+                writeFileSync("./data/devices.json", JSON.stringify(devices, null, 1), "utf8");
                 return devices;
             case "stats":
                 const stats = await client.stats();
-                fs.writeFileSync("./data/stats.json", JSON.stringify(stats, null, 1), "utf8");
+                writeFileSync("./data/stats.json", JSON.stringify(stats, null, 1), "utf8");
                 return stats;
             case "referrals":
                 const referrals = await client.referrals();
-                fs.writeFileSync("./data/referrals.json", JSON.stringify(referrals, null, 1), "utf8");
+                writeFileSync("./data/referrals.json", JSON.stringify(referrals, null, 1), "utf8");
                 return referrals;
             case "transactions":
                 const transactions = await client.transactions();
-                fs.writeFileSync("./data/transactions.json", JSON.stringify(transactions, null, 1), "utf8");
+                writeFileSync(
+                    "./data/transactions.json",
+                    JSON.stringify(transactions, null, 1),
+                    "utf8"
+                );
                 return transactions;
         }
+    },
+    checkUpdate: async () => {
+        const version = (
+            await axios.get(
+                "https://raw.githubusercontent.com/LockBlock-dev/earnapp-earnings-watcher/master/package.json"
+            )
+        ).data.version;
+
+        if (version !== pkg.version) {
+            return version;
+        }
+
+        return false;
     },
 };

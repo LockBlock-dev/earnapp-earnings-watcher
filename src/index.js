@@ -1,8 +1,8 @@
-const fs = require("fs");
-const axios = require("axios").default;
+const { existsSync, mkdirSync, writeFileSync } = require("fs");
 const { Client } = require("earnapp.js");
 const { Webhook } = require("simple-discord-webhooks");
 const { log, delay, getOld } = require("./util.js");
+const { update } = require("./update.js");
 const handleTotal = require("./handleTotal.js");
 const handlePerDevice = require("./handlePerDevice.js");
 const handleGroupDevices = require("./handleGroupDevices.js");
@@ -44,27 +44,18 @@ const init = async () => {
     return true;
 };
 
-const checkUpdate = async () => {
-    const version = (
-        await axios.get(
-            "https://raw.githubusercontent.com/LockBlock-dev/earnapp-earnings-watcher/master/package.json"
-        )
-    ).data.version;
-
-    if (version !== pkg.version)
-        log(`An update is available! v${pkg.version} => v${version}`, "info");
-};
-
-const run = async () => {
+run = async () => {
     log(`Welcome to EarnApp Earnings Watcher v${pkg.version}`, "success");
+
+    await update();
 
     let test = await init();
 
     if (!test) process.exit(1);
-    if (!fs.existsSync("./data/")) fs.mkdirSync("./data");
+    if (!existsSync("./data/")) mkdirSync("./data");
 
     files.forEach(async (f) => {
-        if (!fs.existsSync(`./data/${f}.json`)) fs.writeFileSync(`./data/${f}.json`, "{}");
+        if (!existsSync(`./data/${f}.json`)) writeFileSync(`./data/${f}.json`, "{}");
 
         if (Object.entries(getOld(f)).length === 0) {
             log(`No previous ${f} detected, downloading...`, "info");
@@ -85,14 +76,12 @@ const run = async () => {
                     break;
             }
 
-            fs.writeFileSync(`./data/${f}.json`, JSON.stringify(data, null, 1), "utf8");
+            writeFileSync(`./data/${f}.json`, JSON.stringify(data, null, 1), "utf8");
             log(`Previous ${f} downloaded`, "success");
         }
     });
 
     log("Waiting for a balance update...", "info");
-
-    await checkUpdate();
 
     while (test) {
         let counters = await client.counters();
@@ -120,7 +109,7 @@ const run = async () => {
             }
         });
 
-        await checkUpdate();
+        await update();
     }
 };
 
