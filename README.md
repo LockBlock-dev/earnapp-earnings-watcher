@@ -35,35 +35,6 @@ module.exports = {
 
 -   Run `start.bat` OR `node index.js` OR `npm start`.
 
-## Docker
-
-### Compose
-
-```YAML
-version: "3.3"
-services:
-    app:
-        image: fazalfarhan01/earnapp-earning-monitor:lockblock-latest
-        restart: always
-        environment:
-            AUTH: afbdsafdbaedgtfn
-            WEBHOOK_URL: https://example.com/somthing_to_do_with_you
-            MODE: all # Defaults to all when nothing specified
-            # takes total / perDevice / referrals / transactions / all as option
-            DELAY: 40
-```
-
-### Non-Compose
-
-```BASH
-docker run -it --rm --restart always \
--e AUTH=YOUR_AUTH_COOKIE \
--e WEBHOOK_URL=YOUR_WEBHOOK_URL_HERE \
--e MODE=YOUR_MODE_HERE \
--e DELAY=YOUR_DELAY_HERE \
-fazalfarhan01/earnapp-earning-monitor:lockblock-latest
-```
-
 ## How do I find my cookies ?!
 
 Please check this [link](https://github.com/LockBlock-dev/earnapp.js/blob/master/Cookies.md#how-to-login-with-cookies).
