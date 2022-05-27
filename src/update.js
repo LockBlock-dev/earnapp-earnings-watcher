@@ -39,7 +39,7 @@ module.exports.update = async () => {
 
                 writeFileSync(
                     `./${files[i]}`,
-                    typeof code === "object" ? JSON.stringify(code) : code,
+                    typeof code === "object" ? JSON.stringify(code, null, 2) : code,
                     "utf8"
                 );
             }

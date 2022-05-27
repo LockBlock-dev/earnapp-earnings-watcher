@@ -24,15 +24,17 @@ module.exports = async (client, postman) => {
     let activesCount = {
         win: 0,
         linux: 0,
-        android: 0
-    }
+        android: 0,
+    };
     let count = {
         win: 0,
         linux: 0,
-        android: 0
-    }
+        android: 0,
+    };
 
-    oldEarnings.filter((device) => device.earned > 0).forEach((device) => (oldTraffic += device.bw));
+    oldEarnings
+        .filter((device) => device.earned > 0)
+        .forEach((device) => (oldTraffic += device.bw));
     active.forEach((device) => {
         newTraffic += device.bw;
         if (device.uuid.includes("win")) activesCount.win += 1;

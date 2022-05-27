@@ -38,19 +38,19 @@ module.exports = {
     getNew: async (client, type) => {
         switch (type) {
             case "devices":
-                const devices = await client.devices();
+                const devices = await client.dashboard.devices();
                 writeFileSync("./data/devices.json", JSON.stringify(devices, null, 1), "utf8");
                 return devices;
             case "stats":
-                const stats = await client.stats();
+                const stats = await client.dashboard.stats();
                 writeFileSync("./data/stats.json", JSON.stringify(stats, null, 1), "utf8");
                 return stats;
             case "referrals":
-                const referrals = await client.referrals();
+                const referrals = await client.dashboard.referrals();
                 writeFileSync("./data/referrals.json", JSON.stringify(referrals, null, 1), "utf8");
                 return referrals;
             case "transactions":
-                const transactions = await client.transactions();
+                const transactions = await client.dashboard.transactions();
                 writeFileSync(
                     "./data/transactions.json",
                     JSON.stringify(transactions, null, 1),
