@@ -8,7 +8,7 @@ const pkg = require("../package.json");
 
 const client = new Client();
 const postman = new Webhook(config.discordWebhookURL);
-const webhookReg = /https:\/\/discord.com\/api\/webhooks\/\d{18}\/.+/;
+const webhookReg = /https:\/\/discord.com\/api\/webhooks\/\d{18,}\/.+/;
 const files = ["devices", "referrals", "stats", "transactions"];
 
 client.dashboard.login({
